@@ -2,7 +2,7 @@
  * Thius module exports a `createLambdaConfig` function that is used to
  * create `rollup` configuration for given lambda function name.
  *
- * It is used by `tools/bin/bundle` to create a bundle for each
+ * It is used by `tools/bin/bundle-lambdas` to create a bundle for each
  * lambda function at `src/lambdas/*`.
  */
 const resolvePlugin = require('rollup-plugin-node-resolve');
