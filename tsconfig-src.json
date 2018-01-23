@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "outDir": "./work/dist",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "module": "ES6",
+    "target": "ESNext",
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

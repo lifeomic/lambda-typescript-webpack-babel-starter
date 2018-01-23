@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+/**
+ * This tool is used to create a bundle using `rollup` for each
+ * lambda function located at `~/src/lambdas/*`
+ */
+
+/* eslint-disable security/detect-non-literal-fs-filename */
+
+require('require-self-ref');
+
+const rollup = require('rollup');
+const fs = require('fs');
+const path = require('path');
+
+const configFactory = require('~/rollup.config-factory.js');
+
+async function build () {
+  const lambdaNames = fs.readdirSync(path.join(__dirname, '../../src/lambdas'));
+
+  for (const lambdaName of lambdaNames) {
+    const {
+      inputOptions,
+      outputOptions
+    } = configFactory.createLambdaConfig(lambdaName);
+
+    // create the bundle for lambda function
+    const bundle = await rollup.rollup(inputOptions);
+
+    // write the lambda bundle to disk
+    await bundle.write(outputOptions);
+  }
+
+  console.log('Finished building lambda bundles.');
+}
+
+console.log('Building lambda bundles...');
+build().catch((err) => {
+  console.error('Error building lambda bundles.', (err.stack || err.toString()));
+  process.exitCode = -1;
+});

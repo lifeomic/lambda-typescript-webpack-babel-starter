@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+(
+  lambda_names=()
+
+  pushd ./src/lambdas
+  LAMBDA_DIRS=`find . -type d`
+  popd
+
+  # Read the directory `src/lambda/*` directory
+  # to find names of all of the lambda functions.
+  for LAMBDA_DIR in ${LAMBDA_DIRS}; do
+    LAMBDA_NAME="$( basename ${LAMBDA_DIR} )"
+    if [ "$LAMBDA_NAME" != '.' ]; then
+      pushd "work/dist/${LAMBDA_NAME}"
+      LAMBDA_ZIP_FILE="../${LAMBDA_NAME}.zip"
+      rm -f "${LAMBDA_ZIP_FILE}"
+      zip -r "${LAMBDA_ZIP_FILE}" .
+      popd
+    fi
+  done
+)
