@@ -26,7 +26,7 @@ This project demonstrates using the following technologies:
   alternative to `npm`.
 
 - [nyc](https://github.com/istanbuljs/nyc): `nyc` provides a command-line
-  interface for calculating code coverage with
+  interface for calculating test code coverage with
   [istanbul](https://github.com/istanbuljs/istanbuljs).
 
 - [chalk](https://github.com/chalk/chalk): `chalk` is used to add color to
