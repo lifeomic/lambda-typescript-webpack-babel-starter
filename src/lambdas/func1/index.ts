@@ -13,7 +13,7 @@ async function run (event: any, context: AWSLambda.Context) {
   logger.info({
     SLEEP_DURATION_IN_MILLISECONDS
   }, `Waiting...`);
-  await sleep(1000);
+  await sleep(SLEEP_DURATION_IN_MILLISECONDS);
   logger.info(`Finished waiting.`);
   return {
     name: 'func1'
