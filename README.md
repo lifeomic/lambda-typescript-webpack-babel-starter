@@ -25,7 +25,9 @@ This project demonstrates using the following technologies:
 - [yarn](https://yarnpkg.com/): `yarn` is a dependency manager that is an
   alternative to `npm`.
 
-- [nyc](https://github.com/istanbuljs/nyc): `nyc` is a test code coverage tool.
+- [nyc](https://github.com/istanbuljs/nyc): `nyc` provides a command-line
+  interface for calculating code coverage with
+  [istanbul](https://github.com/istanbuljs/istanbuljs).
 
 - [chalk](https://github.com/chalk/chalk): `chalk` is used to add color to
   console output.
@@ -60,6 +62,9 @@ to your own repo.
   due to the nature of testing and deploying lambda functions).
 
 - Provide a starter project that works for everyone.
+
+- Provide deployment scripts (use something like [terraform](https://www.terraform.io/docs/providers/aws/r/lambda_function.html),
+  [CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-function.html), or [aws-cli](https://docs.aws.amazon.com/cli/latest/reference/lambda/) if you need to deploy lambda functions).
 
 ## Scripts
 
