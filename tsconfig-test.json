@@ -6,6 +6,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowJs": true,
+    "sourceMap": true,
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "ESNext",
