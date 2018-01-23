@@ -53,6 +53,8 @@ to your own repo.
 - Create a server and relaunch when file changes (this is not necessary
   due to the nature of testing and deploying lambda functions).
 
+- Provide a starter project that works for everyone.
+
 ## Scripts
 
 - `yarn test`: Use this command to lint, compile `test/**/*` files with
@@ -64,6 +66,29 @@ to your own repo.
 
 - `yarn lint`: Use this command to lint the `src/**/*` and `test/**/*`
   files with `tslint` (does not require compilation).
+
+## Why do some module paths start with `~/`?
+
+This starter project uses [require-self-ref](https://github.com/patrick-steele-idem/require-self-ref)
+to make it possible to `require`/`import` relative to the root of the project.
+
+For example, `import { sleep } from '~/src/util'` will always import
+the `sleep` function from `src/util/index.ts` no matter which file
+the import file is found in.
+
+In the `rollup` configuration we provide a custom _resolver_ plugin
+that automatically resolves `~/*` paths relative to the root of the project.
+
+In the `tsc` (TypeScript compiler) configuration, we use a combination of
+the `compilerOptions.baseUrl` and `compilerOptions.paths` properties to
+configure how `~/*` paths are resolved.
+
+At runtime, all test files include `import 'require-self-ref'` which
+loads the `require-self-ref` module which tweaks the Node.js module
+loader so that `~/*` paths are properly resolved at runtime. It's
+not necessary to use `require-self-ref` for lambda functions because
+the `rollup` bundling job will automatically inline all modules into
+a single bundle.
 
 ## TypeScript (compiler)
 
