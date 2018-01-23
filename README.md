@@ -27,6 +27,12 @@ This project demonstrates using the following technologies:
 
 - [nyc](https://github.com/istanbuljs/nyc): `nyc` is a test code coverage tool.
 
+- [chalk](https://github.com/chalk/chalk): `chalk` is used to add color to
+  console output.
+
+- [proxyquire](https://github.com/thlorenz/proxyquire): `proxyquire` is used
+  to substitute mock modules at runtime when running tests.
+
 ## Usage
 
 Clone this repo and make changes as you see fit. Push your changes

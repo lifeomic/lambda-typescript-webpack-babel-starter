@@ -12,6 +12,7 @@ require('require-self-ref');
 const rollup = require('rollup');
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 
 const configFactory = require('~/rollup.config-factory.js');
 
@@ -24,14 +25,18 @@ async function build () {
       outputOptions
     } = configFactory.createLambdaConfig(lambdaName);
 
+    console.log(chalk.cyan(`Creating bundle for ${chalk.bold(lambdaName)} lambda function...`));
+
     // create the bundle for lambda function
     const bundle = await rollup.rollup(inputOptions);
 
     // write the lambda bundle to disk
     await bundle.write(outputOptions);
+
+    console.log(chalk.green(`Created bundle ${chalk.bold(outputOptions.file)}`));
   }
 
-  console.log('Finished building lambda bundles.');
+  console.log(chalk.green('Finished building lambda bundles.'));
 }
 
 console.log('Building lambda bundles...');

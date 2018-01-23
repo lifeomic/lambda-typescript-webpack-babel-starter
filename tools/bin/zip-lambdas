@@ -3,20 +3,23 @@
 (
   lambda_names=()
 
-  pushd ./src/lambdas
+  pushd ./src/lambdas > /dev/null
   LAMBDA_DIRS=`find . -type d`
-  popd
+  popd > /dev/null
 
+  DIST_DIR='work/dist'
   # Read the directory `src/lambda/*` directory
   # to find names of all of the lambda functions.
   for LAMBDA_DIR in ${LAMBDA_DIRS}; do
-    LAMBDA_NAME="$( basename ${LAMBDA_DIR} )"
-    if [ "$LAMBDA_NAME" != '.' ]; then
-      pushd "work/dist/${LAMBDA_NAME}"
+    if [ "$LAMBDA_DIR" != '.' ]; then
+      LAMBDA_NAME="$( basename ${LAMBDA_DIR} )"
+      pushd "${DIST_DIR}/${LAMBDA_NAME}" > /dev/null
       LAMBDA_ZIP_FILE="../${LAMBDA_NAME}.zip"
       rm -f "${LAMBDA_ZIP_FILE}"
       zip -r "${LAMBDA_ZIP_FILE}" .
-      popd
+      popd > /dev/null
+
+      echo "Built ${DIST_DIR}/${LAMBDA_NAME}.zip"
     fi
   done
 )
