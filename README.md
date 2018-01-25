@@ -1,4 +1,4 @@
-# lambda-webpack-babel-typescript-starter
+# Lambda + TypeScript + WebPack + Babel starter project
 
 This project demonstrates using the following technologies:
 
