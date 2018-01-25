@@ -1,4 +1,4 @@
-# lambda-rollup-babel-typescript-starter
+# lambda-webpack-babel-typescript-starter
 
 This project demonstrates using the following technologies:
 
@@ -6,7 +6,7 @@ This project demonstrates using the following technologies:
   to deploy packages of executable JavaScript code to the AWS infrastructure
   and make it executable without having to worry about managing servers.
 
-- [rollup](https://github.com/rollup/rollup): `rollup` is used to create
+- [webpack](https://webpack.js.org/): `webpack` is used to create
   optimized bundles from JavaScript code that leverage ES6 modules.
 
 - [babel](https://babeljs.io/): `babel` transpiles JavaScript code to
@@ -53,7 +53,7 @@ to your own repo.
 
 - Calculate test code coverage using `nyc` when running tests using `ava`.
 
-- Create a bundle using `rollup` for each AWS Lambda function located at
+- Create a bundle using `webpack` for each AWS Lambda function located at
   `src/lambdas/*`.
 
 ## Non-goals
@@ -87,7 +87,7 @@ For example, `import { sleep } from '~/src/util'` will always import
 the `sleep` function from `src/util/index.ts` no matter which file
 the import file is found in.
 
-In the `rollup` configuration we provide a custom _resolver_ plugin
+In the `webpack` configuration we provide an `resolve.alias` property
 that automatically resolves `~/*` paths relative to the root of the project.
 
 In the `tsc` (TypeScript compiler) configuration, we use a combination of
@@ -98,7 +98,7 @@ At runtime, all test files include `import 'require-self-ref'` which
 loads the `require-self-ref` module which tweaks the Node.js module
 loader so that `~/*` paths are properly resolved at runtime. It's
 not necessary to use `require-self-ref` for lambda functions because
-the `rollup` bundling job will automatically inline all modules into
+the `webpack` bundling job will automatically inline all modules into
 a single bundle.
 
 ## TypeScript (compiler)
@@ -123,39 +123,55 @@ usage is explained below.
 - `tsconfig-test.json`: This TypeScript configuration file is used to
   compile files in `test/` directory and the `module` output setting is
   `commonjs` so that they can be executed directly by Node.js runtime
-  without having to be bundled or transpiled with `rollup` and `babel`.
+  without having to be bundled or transpiled with `webpack` and `babel`.
 
 - `tsconfig-src.json`: This TypeScript configuration file is used to
   compile files in `src/` directory and the `module` output setting is
   `ES6` and the output files cannot be executed directly by Node.js.
-  It is assumed that `rollup` and `babel` will be used to create a
+  It is assumed that `webpack` and `babel` will be used to create a
   JavaScript bundle that targets the Node.js runtime supported by
   AWS Lambda.
 
-## Rollup (bundling)
+## WebPack (bundling)
 
-The [rollup](https://github.com/rollup/rollup) tool is used to create an
-optimized bundle for each lambda function located at `src/lambdas`.
+The [webpack](https://webpack.js.org/) tool is used to create an
+optimized bundle for each lambda function located at `src/lambdas/`.
 
-The `rollup` is invoked `rollup -c` which cause `rollup` to use the default
-configuration located at `rollup.config.json`.
+The `webpack` tool is invoked via `yarn webpack` which cause `webpack` to
+use the default configuration located at `webpack.config.json`.
 
-This project **does not** use `rollup` to pre-process code in the `test/*`
-directory when running tests. The test code is only pre-processed once by
-the TypeScript compiler (`tsc`). The source files in `test/*` are automatically
-compiled down to `commonjs` modules so that they can be loaded directly by
-the Node.js runtime.
+This project **does not** use `webpack` to process code in the `test/*`
+directory when running tests. The test code is only compiled by
+the TypeScript compiler (`tsc`). The source files in `test/*` are
+compiled from TypeScript down to `commonjs` modules so that they can be
+loaded directly by the Node.js runtime.
 
-### Rollup Configuration
+**NOTE:** In earlier versions of this starter project, we tried to use
+`rollup` but `rollup` poorly handled transforming JavaScript files
+that had both ES6 `import`/`export` statements and CommonJS `require(...)`
+statements in the same file.
 
-The rollup configuration for each lambda function is dynamically produced
-inside `rollup.config.js` whose `export default` is an array of
-configuration. `rollup` will automatically create a bundle for each
-array entry.
+In our use case, we wanted to be able to `require(...)` normal JavaScript files
+and use `import`/`export` for ES6 modules created from TypeScript compiler.
+That is, in our use case a single JavaScript file compiled from TypeScript
+file might have a mix of `import`/`export` and `require(...)` statements.
+When the [rollup-plugin-commonjs](https://github.com/rollup/rollup-plugin-commonjs)
+plugin saw `import`/`export` in a file then it didn't bother traversing
+the `require(...)` statements (because it assumed that you don't mix
+both in the same file). This caused code referenced in these `require(...)`
+statements to not be bundled properly.
+
+### WebPack Configuration
+
+The webpack configuration for each lambda function is dynamically produced
+inside `webpack.config.js`. `webpack` will automatically create a bundle as
+described by the `entry` property. The `entry` property value is an object in
+which each key is a bundle name and each associated value is the entry point
+file.
 
 ## Babel (JavaScript to JavaScript transpiler)
 
-The `babel` transpiler is integrated with `rollup` via `rollup-plugin-babel`.
+The `babel` transpiler is integrated with `webpack` via `babel-loader` plugin.
 This project is only configured to use `babel` when creating the AWS lambda
 bundle files because we need to transpile all JavaScript files so that they
 are compatible with the Node.js runtime supported by AWS Lambda. Currently,
@@ -163,14 +179,14 @@ the highest Node.js version supported bye AWS Lambda is `node` `6.10`.
 
 ### Babel Configuration
 
-The `babel` configuration is embedded inside the `rollup` configuration which
+The `babel` configuration is embedded inside the `webpack` configuration which
 allows flexibility in the future for having multiple `babel` configurations
 for the various output targets.
 
 The `babel-preset-env` package provides presets for `babel` that can be
 used to target specific runtime environments (for example, `node` `6.10`).
 
-The `babel` configuration is provided to `rollup-plugin-babel` instance and
+The `babel` configuration is provided to `webpack-plugin-babel` instance and
 it looks like the following for AWS Lambda functions:
 
 ```javascript

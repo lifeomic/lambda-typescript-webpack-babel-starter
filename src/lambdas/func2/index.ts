@@ -1,7 +1,7 @@
 import { createLogger } from '~/src/logging';
 
 const logger = createLogger(module);
-const endsWith = require('~/src/util/endsWith');
+const endsWith = require('../../util/endsWith');
 
 async function run (event: any, context: AWSLambda.Context) {
   const message = (endsWith(event.command, 'world'))

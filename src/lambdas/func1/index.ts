@@ -6,7 +6,7 @@
 import { sleep } from '~/src/util';
 import { createLogger } from '~/src/logging';
 
-const logger = createLogger(module);
+const logger = createLogger('xyz');
 const SLEEP_DURATION_IN_MILLISECONDS = 1000;
 
 async function run (event: any, context: AWSLambda.Context) {

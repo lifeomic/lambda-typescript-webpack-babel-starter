@@ -1,6 +1,6 @@
 import * as path from 'path';
-import * as bunyan from 'bunyan';
 
+const bunyan = require('bunyan');
 const PROJECT_NAME = require('~/package.json').name;
 const BASEDIR = path.normalize(path.join(__dirname, '../..'));
 
