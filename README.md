@@ -1,5 +1,7 @@
 # Lambda + TypeScript + WebPack + Babel starter project
 
+[![Build Status](https://travis-ci.org/lifeomic/lambda-typescript-webpack-babel-starter.svg?branch=master)](https://travis-ci.org/lifeomic/lambda-typescript-webpack-babel-starter)
+
 This project demonstrates using the following technologies:
 
 - [AWS Lambda](https://aws.amazon.com/lambda/): AWS Lambda allows developers
