@@ -137,10 +137,8 @@ usage is explained below.
 The [rollup](https://github.com/rollup/rollup) tool is used to create an
 optimized bundle for each lambda function located at `src/lambdas`.
 
-The `rollup` is invoked `tools/bin/bundle-lambda` which uses the `rollup`
-JavaScript API. The JavaScript API is used instead of the CLI because this
-allows us to dynamically read the contents of `src/lambdas/*` at build time and
-automatically generate a unique bundle configuration for each lambda function.
+The `rollup` is invoked `rollup -c` which cause `rollup` to use the default
+configuration located at `rollup.config.json`.
 
 This project **does not** use `rollup` to pre-process code in the `test/*`
 directory when running tests. The test code is only pre-processed once by
@@ -151,10 +149,9 @@ the Node.js runtime.
 ### Rollup Configuration
 
 The rollup configuration for each lambda function is dynamically produced
-by the `rollup.config-factory.js` moodule at the root of the project.
-
-For example, `require('./rollup.config-factory.js').createLambdaConfig('func1')`
-will create the `rollup` configuration for the `func1` AWS lambda function.
+inside `rollup.config.js` whose `export default` is an array of
+configuration. `rollup` will automatically create a bundle for each
+array entry.
 
 ## Babel (JavaScript to JavaScript transpiler)
 

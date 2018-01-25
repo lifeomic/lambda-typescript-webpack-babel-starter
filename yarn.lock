@@ -48,12 +48,6 @@
   version "0.0.27"
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-0.0.27.tgz#11bba7b856a6ba3f0c7b679956371e6315cd029c"
 
-"@types/aws-sdk@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@types/aws-sdk/-/aws-sdk-2.7.0.tgz#83588b3d14ebdca1d4ce5e023387577568ce82f3"
-  dependencies:
-    aws-sdk "*"
-
 "@types/bunyan@^1.8.4":
   version "1.8.4"
   resolved "https://registry.yarnpkg.com/@types/bunyan/-/bunyan-1.8.4.tgz#69c11adc7b50538d45fb68d9ae39d062b9432f38"
@@ -332,7 +326,7 @@ ava@^0.24.0:
     unique-temp-dir "^1.0.0"
     update-notifier "^2.3.0"
 
-aws-sdk@*, aws-sdk@^2.185.0:
+aws-sdk@^2.185.0:
   version "2.185.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.185.0.tgz#a570b8cb1a083d88ed90f5f629144b1dcf6e1434"
   dependencies:

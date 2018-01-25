@@ -3,11 +3,14 @@
     "rootDir": ".",
     "baseUrl": ".",
     "outDir": "./work/dist",
+    "allowSyntheticDefaultImports": false,
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "allowJs": true,
     "moduleResolution": "node",
-    "module": "ES6",
     "target": "ESNext",
     "paths": {
       "~/*": ["./*"]

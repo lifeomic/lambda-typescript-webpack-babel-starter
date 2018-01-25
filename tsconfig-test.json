@@ -1,21 +1,8 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "baseUrl": ".",
     "outDir": "./work/dist-test",
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
     "module": "commonjs",
-    "target": "ESNext",
-    "paths": {
-      "~/*": ["./*"]
-    }
-  },
-  "include": [
-    "src/**/*",
-    "test/**/*"
-  ]
+    "target": "ESNext"
+  }
 }

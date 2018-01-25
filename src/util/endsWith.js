@@ -2,8 +2,8 @@
 // and TypeScript can coexist.
 
 module.exports = (str, search) => {
-  if (!str) {
-    return !search;
+  if (str == null) {
+    return false;
   }
 
   const len = str.length;

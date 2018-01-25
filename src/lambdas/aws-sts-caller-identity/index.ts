@@ -1,10 +1,10 @@
 import { createLogger } from '~/src/logging';
+import { STS } from 'aws-sdk';
 
-const AWS = require('aws-sdk');
 const logger = createLogger(module);
 
 async function run (event: any, context: AWSLambda.Context) {
-  const sts = new AWS.STS();
+  const sts = new STS();
   return sts.getCallerIdentity({}).promise();
 }
 

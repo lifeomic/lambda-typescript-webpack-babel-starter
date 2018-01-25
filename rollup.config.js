@@ -1,15 +1,12 @@
-/**
- * Thius module exports a `createLambdaConfig` function that is used to
- * create `rollup` configuration for given lambda function name.
- *
- * It is used by `tools/bin/bundle-lambdas` to create a bundle for each
- * lambda function at `src/lambdas/*`.
- */
+/* eslint-disable security/detect-non-literal-fs-filename */
+/* eslint-disable security/detect-object-injection */
+
 const resolvePlugin = require('rollup-plugin-node-resolve');
 const babelPlugin = require('rollup-plugin-babel');
 const commonjsPlugin = require('rollup-plugin-commonjs');
 const resolve = require('resolve');
 const path = require('path');
+const fs = require('fs');
 
 const OUTPUT_DIR = path.join(__dirname, 'work/dist');
 const INPUT_DIR = OUTPUT_DIR;
@@ -26,20 +23,31 @@ const projectResolver = {
   }
 };
 
-exports.createLambdaConfig = function (lambdaFuncName) {
-  // See rollup JavaScript API documentation https://rollupjs.org/guide/en
-  // for description of `inputOptions` and `outputOptions`.
+const configs = [];
 
-  const inputOptions = {
-    external: ['aws-sdk'],
-    input: path.join(INPUT_DIR, `src/lambdas/${lambdaFuncName}/index.js`),
+const lambdaNames = fs.readdirSync(path.join(__dirname, 'src/lambdas'));
+
+for (let i = 0; i < lambdaNames.length; i++) {
+  const lambdaName = lambdaNames[i];
+  configs.push({
+    external: [
+      'aws-sdk',
+      'path',
+      'os',
+      'fs',
+      'util',
+      'assert',
+      'events',
+      'stream'
+    ],
+    input: path.join(INPUT_DIR, `src/lambdas/${lambdaName}/index.js`),
     plugins: [
       projectResolver,
+      commonjsPlugin({
+        include: 'node_modules/**'
+      }),
       resolvePlugin({
         preferBuiltins: true
-      }),
-      commonjsPlugin({
-        ignore: ['aws-sdk']
       }),
       babelPlugin({
         presets: [
@@ -57,16 +65,12 @@ exports.createLambdaConfig = function (lambdaFuncName) {
           'external-helpers'
         ]
       })
-    ]
-  };
+    ],
+    output: {
+      file: path.join(OUTPUT_DIR, `${lambdaName}/index.js`),
+      format: 'cjs'
+    }
+  });
+}
 
-  const outputOptions = {
-    file: path.join(OUTPUT_DIR, `${lambdaFuncName}/index.js`),
-    format: 'cjs'
-  };
-
-  return {
-    inputOptions,
-    outputOptions
-  };
-};
+export default configs;
