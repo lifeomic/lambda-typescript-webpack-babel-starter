@@ -186,8 +186,8 @@ for the various output targets.
 The `babel-preset-env` package provides presets for `babel` that can be
 used to target specific runtime environments (for example, `node` `6.10`).
 
-The `babel` configuration is provided to `webpack-plugin-babel` instance and
-it looks like the following for AWS Lambda functions:
+The `babel` configuration is provided via the `options` property of the
+`babel-loader` plugin in `webpack.config.js` and it looks like the following:
 
 ```javascript
 {
@@ -195,6 +195,7 @@ it looks like the following for AWS Lambda functions:
     [
       'env',
       {
+        // Latest Node.js runtime for AWS Lambda functions is currently 6.10
         targets: {
           node: '6.10'
         },

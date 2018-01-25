@@ -37,11 +37,19 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['env', {
-                targets: {
-                  node: '6.10'
+              [
+                'env',
+                {
+                  // Latest Node.js runtime for AWS Lambda functions is currently 6.10
+                  targets: {
+                    node: '6.10'
+                  },
+                  modules: false
                 }
-              }]
+              ]
+            ],
+            plugins: [
+              'external-helpers'
             ]
           }
         }
