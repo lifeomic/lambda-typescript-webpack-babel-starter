@@ -6,7 +6,6 @@
  * AWS credentials, we create a mock for `aws-sdk` and use `proxyquire`
  * to replace the actual `aws-sdk` our mock;
  */
-import 'require-self-ref';
 import test from 'ava';
 import * as proxyquire from 'proxyquire';
 import invokeLambdaHandler from './util/invokeLambdaHandler';

@@ -1,4 +1,3 @@
-import 'require-self-ref';
 import test from 'ava';
 import * as util from '~/src/util';
 

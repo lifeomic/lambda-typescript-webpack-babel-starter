@@ -1,4 +1,3 @@
-import 'require-self-ref';
 import test from 'ava';
 import { handler as func2Handler } from '~/src/lambdas/func2';
 import invokeLambdaHandler from './util/invokeLambdaHandler';
