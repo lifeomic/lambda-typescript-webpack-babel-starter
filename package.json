@@ -32,5 +32,10 @@
   "dependencies": {
     "aws-sdk": "^2.185.0",
     "bunyan": "^1.8.12"
+  },
+  "ava": {
+    "require": [
+      "require-self-ref"
+    ]
   }
 }
