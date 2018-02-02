@@ -12,6 +12,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "target": "ESNext",
+    "pretty": true,
     "paths": {
       "~/*": ["./*"]
     }
