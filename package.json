@@ -4,7 +4,7 @@
     "compile-test": "rm -rf work/dist-test && tsc -p tsconfig-test.json && cp package.json work/dist-test",
     "prebundle": "yarn compile-src",
     "bundle": "yarn webpack && ./tools/bin/zip-lambdas",
-    "lint": "tslint --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "tslint --format codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
     "build": "yarn bundle"
