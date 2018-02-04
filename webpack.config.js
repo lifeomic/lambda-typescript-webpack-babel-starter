@@ -47,9 +47,6 @@ module.exports = {
                   modules: false
                 }
               ]
-            ],
-            plugins: [
-              'external-helpers'
             ]
           }
         }
