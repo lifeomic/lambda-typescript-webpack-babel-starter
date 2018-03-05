@@ -8,12 +8,11 @@
     "precompile-test": "rm -rf work/dist-test",
     "compile-test": "yarn compile-test-ts && yarn transpile-test-js",
     "postcompile-test": "cp package.json work/dist-test",
-    "prebundle": "yarn compile-src",
-    "bundle": "yarn webpack && ./tools/bin/zip-lambdas",
+    "build": "yarn compile-src && yarn webpack --mode production",
+    "bundle": "yarn build && ./tools/bin/zip-lambdas",
     "lint": "tslint --format codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "pretest": "yarn lint && yarn compile-test",
-    "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'",
-    "build": "yarn bundle"
+    "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'"
   },
   "devDependencies": {
     "@types/aws-lambda": "^0.0.33",
@@ -36,7 +35,8 @@
     "tslint": "^5.9.1",
     "tslint-config-semistandard": "^7.0.0",
     "typescript": "^2.7.1",
-    "webpack": "^3.10.0"
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
   },
   "dependencies": {
     "aws-sdk": "^2.185.0",

@@ -76,8 +76,10 @@ to your own repo.
   TypeScript, and run tests with `ava` and `nyc`. We use the following
   glob pattern for unit tests: `test/**/*.test.js`.
 
-- `yarn build`: Use this command to compile and package lambda functions
-  at `src/lambdas/*` to `work/dist/*.zip` files.
+- `yarn build`: Use this command to compile the lambda functions.
+
+- `yarn bundle`:  Use this command to build the lambda functions and then
+  create zip files at `work/dist/*.zip`.
 
 - `yarn lint`: Use this command to lint the `src/**/*` and `test/**/*`
   files with `tslint` (does not require compilation).
