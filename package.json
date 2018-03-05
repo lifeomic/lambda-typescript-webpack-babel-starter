@@ -30,7 +30,7 @@
     "builtin-modules": "^2.0.0",
     "chalk": "^2.3.0",
     "nyc": "^11.4.1",
-    "proxyquire": "^1.8.0",
+    "proxyquire": "^2.0.0",
     "require-self-ref": "^2.0.1",
     "source-map-support": "^0.5.3",
     "tslint": "^5.9.1",
