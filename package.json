@@ -15,7 +15,7 @@
     "test": "nyc ava 'work/dist-test/test/unit/**/*.test.js'"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^0.0.35",
+    "@types/aws-lambda": "^8.10.0",
     "@types/bunyan": "^1.8.4",
     "@types/node": "^9.4.6",
     "@types/proxyquire": "^1.3.28",
